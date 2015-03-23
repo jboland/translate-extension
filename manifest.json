@@ -1,0 +1,22 @@
+{
+	"manifest_version": 2,
+	"name": "Translate this",
+	"description": "Translate words or phrases in page",
+	"version": "0.1",
+	"browser_action": {
+		"default_popup": "popup.html"
+	},
+	"icons": {
+		"128": "icon-2.png"
+	},
+	"permissions": [
+		"tabs",
+		"contextMenus",
+		"http://*/*",
+		"https://*/*"
+	],
+	"background": {
+		"scripts": ["js/event.js"],
+		"persistent": false
+	}
+}

@@ -1,0 +1,43 @@
+body {
+	min-width: 420px;
+	overflow-x: hidden;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
+
+.match-wrapper {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 10px;
+	font-weight: bold;
+	position: relative;
+}
+
+#match {
+	position: absolute;
+	left: 15px;
+	top: 40px;
+}
+
+.match-one {
+	border-color: darkgreen;
+}
+
+.match-two {
+	border-color: lightgreen;
+}
+
+.match-three {
+	border-color: yellow;
+}
+
+.match-four {
+	border-color: red;
+}
+
+.match-five {
+	border-color: darkred;
+}
