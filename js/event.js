@@ -40,21 +40,3 @@ var eventPageTranslate = function(info, tab) {
 
 
 }
-
-
-
-chrome.runtime.onInstalled.addListener(function() {
-	var context = "all",
-		title = "TranslateThis";
-
-	var id = chrome.contextMenus.create({
-		"id": "context" + context,
-		// "documentUrlPatterns": ["http://*/*", "https://*/*"],
-		"title": title,
-		"contexts": [context]//,
-		// "onclick": eventPageTranslate
-	});	
-});
-
-chrome.contextMenus.onClicked.addListener(eventPageTranslate);
-

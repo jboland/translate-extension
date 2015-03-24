@@ -35,28 +35,16 @@ translate.displayTranslation = function(data) {
 	document.getElementById('response').innerHTML = JSON.stringify(data);
 	var response = data.responseData;
 	document.getElementById('translation').innerHTML = response.translatedText;
-	document.getElementById('match').innerHTML = ((response.match * 100) + '%');
+	document.querySelector('.match-wrapper').innerHTML = ((response.match * 100) + '%');
 
 	translate.setMatchClass(response.match);
 }
 
 translate.setMatchClass = function(match) {
-	var matchClass = '';
-	match = match * 100;
+	var hue = 120 * match;
 
-	if (match >= 80) {
-		matchClass = 'match-one';
-	} else if (match >= 60) {
-		matchClass = 'match-two';
-	} else if (match >= 40) {
-		matchClass = 'match-three';
-	} else if (match >= 20) {
-		matchClass = 'match-four';
-	} else {
-		matchClass = 'match-five';
-	}
 
-	document.querySelector('.match-wrapper').classList.add(matchClass);
+	document.querySelector('.match-wrapper').style.borderBottomColor = 'hsla(' + hue + ', 75%, 50%, 1)';
 }
 
 window.addEventListener('load', function(event) {
