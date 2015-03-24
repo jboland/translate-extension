@@ -32,19 +32,37 @@ translate.getTranslation = function(from, to, text) {
 }
 
 translate.displayTranslation = function(data) {
-	document.getElementById('response').innerHTML = JSON.stringify(data);
-	var response = data.responseData;
-	document.getElementById('translation').innerHTML = response.translatedText;
-	document.querySelector('.match-wrapper').innerHTML = ((response.match * 100) + '%');
+	if (data.responseStatus === 200) {
+		// dump raw data for debugging
+		document.getElementById('response').innerHTML = JSON.stringify(data);
+		
+		var response = data.responseData;
+		document.getElementById('translation').innerHTML = response.translatedText;
+		document.querySelector('.match-wrapper').innerHTML = ((response.match * 100) + '%');
 
-	translate.setMatchClass(response.match);
+		translate.setMatchClass(response.match);
+	 } else {
+	 	translate.handleError(data);
+	 }
 }
 
 translate.setMatchClass = function(match) {
 	var hue = 120 * match;
-
-
 	document.querySelector('.match-wrapper').style.borderBottomColor = 'hsla(' + hue + ', 75%, 50%, 1)';
+}
+
+translate.handleError = function(data) {
+	console.log(data);
+	if (data.responseDetails == "PLEASE SELECT TWO DISTINCT LANGUAGES") {
+		// status : manually select source language
+		document.getElementById('languages-wrapper').classList.remove('hidden');
+		document.getElementById('status-message').classList.remove('hidden');
+		document.getElementById('status-message').innerText = 'Please select the language you are translating from';
+	} else if (data.responseDetails.indexOf("NO QUERY SPECIFIED") > -1) {
+		// status : please make a selection
+	} else {
+
+	}
 }
 
 window.addEventListener('load', function(event) {
