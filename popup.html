@@ -12,14 +12,13 @@
 	<div class="container">
 		<div id="details" class="center-block">
 			<div id="status-message" class="alert alert-danger hidden"></div>
-			<span>Translating from: </span> <div id="content-lang"> </div>
-			<div class="translation-wrapper">
-				<h4 id="translation">Translation...</h4>
-				<div class="match-wrapper">
-				</div>
+			<div class="wrapper">
+				<div class="fa fa-pencil"></div>
+				<span class="text">Translating from:</span>
+				<div id="content-lang" class="content-lang"></div>
 			</div>
 			<div id="languages-wrapper" class="hidden">
-				<select name="langs">
+				<select name="langs" class="form-control">
 					<option value="ab">Abkhaz (аҧсуа)</option>
 					<option value="aa">Afar (Afaraf)</option>
 					<option value="af">Afrikaans (Afrikaans)</option>
@@ -203,6 +202,11 @@
 					<option value="yo">Yoruba (Yorùbá)</option>
 					<option value="za">Zhuang, Chuang (Saɯ cueŋƅ, Saw cuengh)</option>
 				</select>
+			</div>
+			<div class="translation-wrapper">
+				<h4 id="translation">Translation...</h4>
+				<div class="match-wrapper">
+				</div>
 			</div>
 			<pre id="response"></pre>
 		</div>

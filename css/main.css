@@ -18,3 +18,16 @@ body {
 	font-weight: bold;
 	position: relative;
 }
+
+.content-lang {
+	display: inline-block;
+}
+
+.content-lang,
+.text {
+	cursor: initial;
+}
+
+.fa {
+	cursor: pointer;
+}
