@@ -1,8 +1,17 @@
 body {
-	min-width: 420px;
-	overflow-x: hidden;
+	width: 420px;
+	min-height: 120px;
 	font-family: Arial, sans-serif;
 	font-size: 16px;
+}
+
+.loading .translation-wrapper,
+body:not(.loading) #spinner {
+	display: none;
+}
+
+.loading #spinner {
+	display: block;
 }
 
 .container {
@@ -28,6 +37,13 @@ body {
 	cursor: initial;
 }
 
-.fa {
+.fa-pencil {
 	cursor: pointer;
+}
+
+#spinner {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform:translateX(-50%) translateY(-50%);
 }

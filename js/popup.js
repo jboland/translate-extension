@@ -1,16 +1,26 @@
 var translate = {
 	contentLang: '',
 	toLang: 'en',
-	text: ''
+	text: '',
+	displayLang: ''
 };
 
 translate.pageDetailsReceived = function(pageDetails) {
-	translate.contentLang = pageDetails.contentLang;
+	// set text property on object for use elsewhere
 	translate.text = pageDetails.text;
+	
+	if ( pageDetails.contentLang != '' ) {
+		// trim contentLang to 2-letter code (eg en vs en-US) -- API only needs two-letter code
+		if (pageDetails.contentLang.length > 2) {
+			console.log('in contentlang if', pageDetails);
+			translate.contentLang = pageDetails.contentLang.substring(0,2);
+		} else {
+			translate.contentLang = pageDetails.contentLang;
+		}
 
-	document.getElementById("content-lang").innerText = translate.contentLang;
+		translate.setDisplayLang();
 
-	if ( translate.contentLang != '' ) {
+		document.getElementById("content-lang").innerText = translate.displayLang;
 		document.querySelector('#languages-wrapper select').value = translate.contentLang;
 		translate.getTranslation();
 	} else {
@@ -37,12 +47,15 @@ translate.getTranslation = function() {
 			return;
 		}
 	}
-
+	document.body.classList.add('loading');
+	//document.getElementById('spinner').classList.toggle('hidden');
 	xhr.open('GET', url, true);
 	xhr.send();
 }
 
 translate.displayTranslation = function(data) {
+	//document.getElementById('spinner').classList.toggle('hidden');
+	document.body.classList.remove('loading');
 	if (data.responseStatus === 200) {
 		// dump raw data for debugging
 		document.getElementById('response').innerHTML = JSON.stringify(data);
@@ -79,12 +92,24 @@ translate.handleError = function(data, noLang) {
 	}
 }
 
+translate.setDisplayLang = function() {
+	var displayLang = document.querySelector('option[value=' + translate.contentLang + ']');
+	if (displayLang) {
+		translate.displayLang = displayLang.innerText;
+	} else {
+		translate.displayLang = translate.contentLang;
+	}
+	return;
+}
+
 translate.bindEvents = function() {
 	document.querySelector('#languages-wrapper select').addEventListener('change', function(event) {
 		console.log(event);
 		var newLang = event.target.value;
 		translate.contentLang = newLang;
-		document.getElementById('content-lang').innerText = newLang;
+		translate.setDisplayLang();
+		document.getElementById('content-lang').innerText = translate.displayLang;
+		document.getElementById('languages-wrapper').classList.toggle('hidden');
 		translate.getTranslation();
 	});
 
